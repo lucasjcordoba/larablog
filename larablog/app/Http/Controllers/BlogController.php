@@ -38,7 +38,11 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         // Ésta variable es para que todos los datos que se envían se almacenen en el método store
-        $datosBLog=request()->all();
+        //$datosBLog=request()->all();
+        $datosBLog=request()->except('_token');
+
+        Blog::insert($datosBLog);
+
         return response()->json($datosBLog);
     }
 
