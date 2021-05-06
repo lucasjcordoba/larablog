@@ -41,6 +41,11 @@ class BlogController extends Controller
         //$datosBLog=request()->all();
         $datosBLog=request()->except('_token');
 
+        //Almacena la imagen cargada en el form en la ruta uploads/public del proyecto
+        if($request->hasFile('image')) {
+            $datosBLog['image']=$request->file('image')->store('uploads', 'public');
+        }
+
         Blog::insert($datosBLog);
 
         return response()->json($datosBLog);
