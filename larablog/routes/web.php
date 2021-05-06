@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+/*
+Route::get('/blog', 'BlogController@index');
+Route::get('/blog/create', 'BlogController@create');
+Route::get('/blog/edit', 'BlogController@edit');
+*/
+
+Route::resource('blog', 'BlogController');

@@ -15,6 +15,7 @@ class BlogController extends Controller
     public function index()
     {
         //
+        return view('blog.index');
     }
 
     /**
@@ -25,6 +26,7 @@ class BlogController extends Controller
     public function create()
     {
         //
+        return view('blog.create');
     }
 
     /**
@@ -35,7 +37,9 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Ésta variable es para que todos los datos que se envían se almacenen en el método store
+        $datosBLog=request()->all();
+        return response()->json($datosBLog);
     }
 
     /**
@@ -58,6 +62,7 @@ class BlogController extends Controller
     public function edit(Blog $blog)
     {
         //
+        return view('blog.edit');
     }
 
     /**
