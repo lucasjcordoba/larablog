@@ -14,8 +14,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
-        return view('blog.index');
+        //Se almacenan los datos que se consultan en la paginación y se renderizan en la vista
+        $datos['blogs']=Blog::paginate(5);
+        return view('blog.index', $datos);
     }
 
     /**
