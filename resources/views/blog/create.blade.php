@@ -16,5 +16,7 @@ Crear Blog
 
 <input type="submit"  value="Agregar" >
 
+<a href="{{ url('blog')}}">Inicio</a>
+
 
 </form>

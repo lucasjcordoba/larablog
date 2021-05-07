@@ -8,17 +8,12 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //Se almacenan los datos que se consultan en la paginación y se renderizan en la vista
-        $datos['blogs']=Blog::paginate(5);
-        return view('blog.index', $datos);
-    }
+
+
+
+
+
+    //CREATE
 
     /**
      * Show the form for creating a new resource.
@@ -31,6 +26,25 @@ class BlogController extends Controller
         return view('blog.create');
     }
 
+
+    //DETALLE
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //Se almacenan los datos que se consultan en la paginación y se renderizan en la vista
+        $datos['blogs']=Blog::orderBy('created_at', 'DESC')-> get();
+        return view('blog.index', $datos);
+    }
+
+
+
+
+
+    //STORE
     /**
      * Store a newly created resource in storage.
      *
@@ -51,19 +65,34 @@ class BlogController extends Controller
 
         Blog::insert($datosBLog);
 
-        return response()->json($datosBLog);
+        return redirect('blog');
     }
 
+
+
+
+
+    //SHOW(detail)
     /**
      * Display the specified resource.
      *
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($id)
     {
         //
+        
+        //El método findOrFail devuelve toda la información correspondiente al parámetro indicado($id)
+        $detail= Blog::findOrFail($id);
+
+        return view('blog.detail',  compact('detail'));//junto con la vista entrega la información de la variable blog creada en la línea anterior)
     }
+
+
+
+
+    //EDIT
 
     /**
      * Show the form for editing the specified resource.
@@ -78,6 +107,11 @@ class BlogController extends Controller
 
         return view('blog.edit', compact('blog'));//junto con la vista entrega la información de la variable blog creada en la línea anterior)
     }
+
+
+
+
+    //UPDATE
 
     /**
      * Update the specified resource in storage.
@@ -102,6 +136,11 @@ class BlogController extends Controller
             $datosBLog['image']=$request->file('image')->store('uploads', 'public');
         }
 
+        /*
+        $date= Blog::findOrFail($created_at);
+        Storage::delete($blog->created_at);
+        */
+
 
         // Se comparan que los datos sean los corrspondientes al id que se solicita
         Blog::where('id', '=', $id) -> update($datosBLog);
@@ -109,8 +148,16 @@ class BlogController extends Controller
         //Se vuelve a consultar para recuperar la información si hubo cambio en la imagen
         $blog= Blog::findOrFail($id);
 
+        
+
         return view('blog.edit', compact('blog'));//junto con la vista entrega la información de la variable blog creada en la línea anterior)
     }
+
+
+
+
+
+    //DESTROY
 
     /**
      * Remove the specified resource from storage.
@@ -121,7 +168,13 @@ class BlogController extends Controller
     public function destroy($id)
     {
         //
-        Blog::destroy($id);
+        $blog= Blog::findOrFail($id);
+
+        if(Storage::delete('public/'.$blog->image)) {
+            Blog::destroy($id);
+        };
+
+        
         return redirect('blog');
     }
 }

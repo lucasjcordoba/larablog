@@ -1,14 +1,17 @@
 Inicio
 
+<a href="{{ url('blog/create')}}">Agregar entrada</a>
+
 <table class="table table-light">
 
     <!--Nombres de las columnas-->
     <thead class="thead-light">
         <tr>
-            <th>Posicion</th>
             <th>Nombre</th>
             <th>Contenido</th>
             <th>Imagen</th>
+            <th>Fecha</th>
+
         </tr>
     </thead>
 
@@ -20,27 +23,18 @@ Inicio
         
     
         <tr>
-            <td>{{$loop->iteration}}</td>
             <td>{{$blog->name}}</td>
             <td>{{$blog->content}}</td>
             <td>
                 <img src="{{ asset('storage').'/' .$blog->image}}" alt="" width="200">
             </td>
+            <td>{{$blog->created_at}}</td>
         </tr>
         <td>
-            <a href="{{url('/blog/'.$blog->id.'/edit')}}">
-                Editar
+
+            <a href="{{url('blog/'.$blog->id)}}">
+                Ver
             </a>
-
-
-            <form action="{{url('blog/'.$blog->id)}}" method="post">
-            <!--TOKEN-->
-            {{ csrf_field() }}
-
-            <!--Determino el tipo de solicitud que se hace(DELETE)-->
-            {{method_field('DELETE')}}
-            <button type="submit" onclick="return confirm('¿Borrar?');">Borrar</button>
-            </form>
         </td>
 
         @endforeach

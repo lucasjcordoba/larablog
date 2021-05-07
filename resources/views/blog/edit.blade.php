@@ -20,6 +20,8 @@ Editar Blog
     <input type="file" name="image" id="image" value="{{$blog->image}}"> <br>
     
     <input type="submit"  value="Editar" >
+
+    <a href="{{ url('blog')}}">Inicio</a>
     
     
 </form>
