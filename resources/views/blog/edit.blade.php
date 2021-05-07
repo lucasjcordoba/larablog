@@ -15,7 +15,7 @@ Editar Blog
     <input type="text" name="content" id="content" value="{{$blog->content}}"> <br>
     
     <label for="image">{{'Cargar Imagen'}}</label>
-    {{$blog->image}}
+    <img src="{{ asset('storage').'/' .$blog->image}}" alt="" width="200">
     <br>
     <input type="file" name="image" id="image" value="{{$blog->image}}"> <br>
     

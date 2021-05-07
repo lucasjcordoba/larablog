@@ -23,7 +23,9 @@ Inicio
             <td>{{$loop->iteration}}</td>
             <td>{{$blog->name}}</td>
             <td>{{$blog->content}}</td>
-            <td>{{$blog->image}}</td>
+            <td>
+                <img src="{{ asset('storage').'/' .$blog->image}}" alt="" width="200">
+            </td>
         </tr>
         <td>
             <a href="{{url('/blog/'.$blog->id.'/edit')}}">

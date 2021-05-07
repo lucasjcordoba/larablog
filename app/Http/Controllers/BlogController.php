@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
@@ -89,10 +90,23 @@ class BlogController extends Controller
     {
         // Excepción del TOKEN y METHOD
         $datosBLog=request()->except(['_token', '_method']);
+
+        if($request->hasFile('image')) {
+
+            //Se consulta primero para obtener la información antigua
+            $blog= Blog::findOrFail($id);
+
+            //Se utiliza Storage para borrar la imagen antigua
+            Storage::delete('public/'.$blog->image);
+            //Se inserta una nueva imagen
+            $datosBLog['image']=$request->file('image')->store('uploads', 'public');
+        }
+
+
         // Se comparan que los datos sean los corrspondientes al id que se solicita
         Blog::where('id', '=', $id) -> update($datosBLog);
 
-        //El método findOrFail devuelve toda la información correspondiente al parámetro indicado($id)
+        //Se vuelve a consultar para recuperar la información si hubo cambio en la imagen
         $blog= Blog::findOrFail($id);
 
         return view('blog.edit', compact('blog'));//junto con la vista entrega la información de la variable blog creada en la línea anterior)
