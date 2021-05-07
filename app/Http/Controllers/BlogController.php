@@ -40,6 +40,7 @@ class BlogController extends Controller
     {
         // Ésta variable es para que todos los datos que se envían se almacenen en el método store
         //$datosBLog=request()->all();
+        // Excepción del TOKEN
         $datosBLog=request()->except('_token');
 
         //Almacena la imagen cargada en el form en la ruta uploads/public del proyecto
@@ -69,10 +70,12 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit($id)
     {
-        //
-        return view('blog.edit');
+        //El método findOrFail devuelve toda la información correspondiente al parámetro indicado($id)
+        $blog= Blog::findOrFail($id);
+
+        return view('blog.edit', compact('blog'));//junto con la vista entrega la información de la variable blog creada en la línea anterior)
     }
 
     /**
@@ -82,9 +85,17 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
-        //
+        // Excepción del TOKEN y METHOD
+        $datosBLog=request()->except(['_token', '_method']);
+        // Se comparan que los datos sean los corrspondientes al id que se solicita
+        Blog::where('id', '=', $id) -> update($datosBLog);
+
+        //El método findOrFail devuelve toda la información correspondiente al parámetro indicado($id)
+        $blog= Blog::findOrFail($id);
+
+        return view('blog.edit', compact('blog'));//junto con la vista entrega la información de la variable blog creada en la línea anterior)
     }
 
     /**

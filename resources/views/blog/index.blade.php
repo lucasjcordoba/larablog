@@ -25,7 +25,12 @@ Inicio
             <td>{{$blog->content}}</td>
             <td>{{$blog->image}}</td>
         </tr>
-        <td>Editar | 
+        <td>
+            <a href="{{url('/blog/'.$blog->id.'/edit')}}">
+                Editar
+            </a>
+
+
             <form action="{{url('blog/'.$blog->id)}}" method="post">
             <!--TOKEN-->
             {{ csrf_field() }}
