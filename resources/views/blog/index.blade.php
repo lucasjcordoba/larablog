@@ -25,7 +25,16 @@ Inicio
             <td>{{$blog->content}}</td>
             <td>{{$blog->image}}</td>
         </tr>
-        <td>Editar | Borrar</td>
+        <td>Editar | 
+            <form action="{{url('blog/'.$blog->id)}}" method="post">
+            <!--TOKEN-->
+            {{ csrf_field() }}
+
+            <!--Determino el tipo de solicitud que se hace(DELETE)-->
+            {{method_field('DELETE')}}
+            <button type="submit" onclick="return confirm('¿Borrar?');">Borrar</button>
+            </form>
+        </td>
 
         @endforeach
 
