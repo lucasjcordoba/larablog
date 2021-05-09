@@ -1,0 +1,19 @@
+#logo {
+    width: 150px;
+}
+
+#nav {
+   width: 100%;
+   background-image: url('../img/stars.jpeg')
+}
+
+#footer {
+   background-color: black !important;
+   height: 50px;
+}
+
+#creador {
+   color: white;
+   font-size: 20px;
+   padding: 10px;
+}
