@@ -9,20 +9,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://allfont.es/allfont.css?fonts=star-jedi" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/app1.css')}}">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <title>Larablog-Editar Entrada</title>
 </head>
 
 <body>
 
-    <nav id="nav" class="navbar navbar-light bg-light">
+    <nav id="nav" class="navbar navbar-light bg-light h-100">
         <div class="container-fluid">
             <a href="{{ url('blog')}}" class="navbar-brand">
-                <img src="{{asset('../public/img/logoSW.png')}}" alt="">
+                <img id="logo" src="{{asset('../public/img/logoSW.png')}}" alt="">
             </a>
             <div class="d-flex">
                 <a class="btn btn-warning" href="{{ url('blog/create')}}">Agregar entrada</a>
@@ -30,7 +28,9 @@
         </div>
     </nav>
 
-    <div class="container">
+
+    <h1 class="mt-5">Editar entrada</h1>
+    <div id="main" class="card card-body container my-5">
 
         <form action="{{url('blog/'.$blog->id)}}" method="post" enctype="multipart/form-data">
             <!--TOKEN-->
@@ -46,7 +46,7 @@
             </div>
             <div class="mb-3">
                 <label for="content" class="form-label">{{'Descripcion'}}</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="3">{{$blog->content}}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="content" rows="10">{{$blog->content}}</textarea>
             </div>
 
 
@@ -55,16 +55,18 @@
             <br>
             <input type="file" name="image" id="image" value="{{$blog->image}}"> <br>
 
-            
-            <input class="btn btn-warning mt-2" type="submit" value="Editar">\
+
+            <input class="btn btn-warning mt-2" type="submit" value="Editar">
 
 
         </form>
 
     </div>
 
-    <footer class="text-center bg-secondary">
-        Creado por &reg; Lucas Jesús Córdoba
+    <footer id="footer" class="text-center">
+        <h1 id="creador">
+            Creado por &reg; Lucas Jesús Córdoba
+        </h1>
     </footer>
 
 
